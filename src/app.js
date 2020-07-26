@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const utils = require("./utils/weather-stack-api-calls");
+const port = process.env.PORT || 3000;
 
 const staticContentPath = path.join(__dirname, "../assets");
 
@@ -70,6 +71,6 @@ app.get("*", (req, res) => {
   res.render("page-not-found");
 });
 
-app.listen(3000, () => {
-  console.log("Server is up on port 3000");
+app.listen(port, () => {
+  console.log(`Server is up on port: ${port}`);
 });
