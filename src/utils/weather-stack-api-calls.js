@@ -1,5 +1,5 @@
 const request = require("request");
-const config = require('../../config/weather-stack.config.json');
+const config = require('../../config/config.json');
 
 module.exports.weatherApiCall = function (location) {
   return new Promise((resolve, reject) => {
