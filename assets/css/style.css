@@ -55,14 +55,10 @@ button {
     padding: 8px;
 }
 
-#forecastInformation{
+#searchText{
     color: #333333;
     font-family: arial;
     font-weight: bold;
-}
-
-#searchText{
-    font-family: arial;
 }
 
 #errorMessage{

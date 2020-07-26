@@ -2,25 +2,35 @@ console.log("Client Side JS");
 
 const weatherForm = document.querySelector("form");
 const searchCriteria = document.querySelector("input");
-const forecastInformation = document.querySelector("#forecastInformation");
 const errorMessage = document.querySelector("#errorMessage");
 const searchText = document.querySelector("#searchText");
 
-forecastInformation.textContent = "";
+const forecastSummary = document.querySelector("#summary");
+const forecastTemperature = document.querySelector("#actualTemperature");
+const forecastPrecip = document.querySelector("#precip");
+
+forecastSummary.textContent = "";
+forecastTemperature.textContent = "";
+forecastPrecip.textContent = "";
+
 errorMessage.textContent = "";
 searchText.textContent = "";
 
 weatherForm.addEventListener("submit", (e) => {
   searchText.textContent = "";
   errorMessage.textContent = "";
-  forecastInformation.textContent = "";
+
+  forecastSummary.textContent = "";
+  forecastTemperature.textContent = "";
+  forecastPrecip.textContent = "";
+
   e.preventDefault();
 
   if (!searchCriteria.value) {
     return (errorMessage.textContent = "You Must enter a location to search!");
   }
 
-  forecastInformation.textContent = "Loading...";
+  searchText.textContent = "Loading...";
 
   fetch(`/weather?location=${searchCriteria.value}`)
     .then((response) => response.json())
@@ -33,8 +43,7 @@ weatherForm.addEventListener("submit", (e) => {
       } else {
         if (data.info) {
           errorMessage.textContent = "";
-          forecastInformation.textContent = '';
-          searchText.textContent = '';
+          searchText.textContent = "";
 
           errorMessage.textContent = data.info;
         } else {
@@ -45,7 +54,11 @@ weatherForm.addEventListener("submit", (e) => {
             data.location.region +
             ", " +
             data.location.country;
-          forecastInformation.textContent = data.forecast;
+
+          forecastSummary.textContent = data.forecast.summary;
+          forecastTemperature.textContent = data.forecast.actualTemperature + ' ' + data.forecast.feelsLike;
+          forecastPrecip.textContent = data.forecast.precip;
+
           return;
         }
       }
